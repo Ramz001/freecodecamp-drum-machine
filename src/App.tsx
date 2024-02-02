@@ -1,10 +1,10 @@
-import './App.css';
+import DrumMachineContainer from "./components/DrumMachineContainer/DrumMachineContainer";
 
 function App() {
   return (
-    <div>
-     
-    </div>
+    <main className="flex items-center justify-center min-h-svh bg-slate-950">
+      <DrumMachineContainer />
+    </main>
   );
 }
 
