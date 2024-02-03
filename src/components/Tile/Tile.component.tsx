@@ -24,6 +24,7 @@ const Tile: FC<TileTypes> = ({ tile, handleClick, keyClicked }) => {
     scale: 1.05,
     backgroundColor: "rgb(250 204 21)",
     color: "rgb(2 6 23)",
+    
   }
   const buttonPassiveAnimations = { color: 'rgb(226 232 240)', backgroundColor: 'rgb(17 24 39)'}
 
@@ -43,8 +44,8 @@ const Tile: FC<TileTypes> = ({ tile, handleClick, keyClicked }) => {
       onClick={() => handleClick(src)}
       whileHover={buttonHoverAnimations}
       whileTap={buttonHoverAnimations}
-      whileFocus={buttonHoverAnimations}
-      animate={clicked ? buttonHoverAnimations : buttonPassiveAnimations  }
+      animate={clicked ? buttonHoverAnimations : buttonPassiveAnimations }
+      transition={{ duration: .075, ease: 'linear' }}
     >
       {keyChar}
     </motion.button>
