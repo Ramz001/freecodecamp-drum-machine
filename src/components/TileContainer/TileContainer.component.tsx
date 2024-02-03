@@ -5,51 +5,45 @@ import {
 import Tile from "../Tile/Tile.component";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { DrumMachineMode } from "../../features/drum-machine/drum-machine.types";
-import { useEffect } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { setDisplay } from "../../features/drum-machine/drum-machine.slice";
 
 const TileContainer = () => {
   const dispatch = useAppDispatch();
-
+  const [keyClicked, setKeyClicked] = useState("");
   const { mode, power, volume } = useAppSelector((store) => store.drumMachine);
 
-  const handleClick = (src: string) => {
+  const handleClick = useCallback((src: string) => {
     const audio = new Audio(src);
     audio.currentTime = 0;
     audio.volume = volume;
     power && audio.play();
     if (mode === DrumMachineMode.heater) {
-      heaterSoundBar.map((sound) => {
-        if (sound.src === src) {
-          return dispatch(setDisplay(sound.keyDisplay));
-        }
-      });
+      heaterSoundBar
+        .filter((sound) => sound.src === src)
+        .map((sound: any) => dispatch(setDisplay(sound.keyDisplay)));
     }
     if (mode === DrumMachineMode.piano) {
-      pianoSoundBar.map((sound) => {
-        if (sound.src === src) {
-          return dispatch(setDisplay(sound.keyDisplay));
-        }
-      });
+      pianoSoundBar
+        .filter((sound) => sound.src === src)
+        .map((sound: any) => dispatch(setDisplay(sound.keyDisplay)));
     }
-  };
+  },[dispatch, mode, power, volume]);
 
   useEffect(() => {
     const handleKeyDown = (e: any) => {
       const currentKey = e.key;
       if (mode === DrumMachineMode.piano) {
-        pianoSoundBar.map((sound) => {
-          if (sound.keyChar === currentKey.toUpperCase()) {
-            return handleClick(sound.src);
-          }
-        });
+        pianoSoundBar
+          .filter((sound) => sound.keyChar === currentKey.toUpperCase())
+          .map((sound) => handleClick(sound.src));
+        setKeyClicked(currentKey);
       }
       if (mode === DrumMachineMode.heater) {
-        heaterSoundBar.map((sound) => {
-          if (sound.keyChar === currentKey.toUpperCase()) {
-            return handleClick(sound.src);
-          }
-        });
+        heaterSoundBar
+          .filter((sound) => sound.keyChar === currentKey.toUpperCase())
+          .map((sound) => handleClick(sound.src));
+        setKeyClicked(currentKey);
       }
     };
 
@@ -62,11 +56,21 @@ const TileContainer = () => {
     <div className="grid grid-cols-3 grid-rows-3 gap-2">
       {mode === DrumMachineMode.heater &&
         heaterSoundBar.map((sound) => (
-          <Tile handleClick={handleClick} key={sound.id} tile={sound} />
+          <Tile
+            handleClick={handleClick}
+            keyClicked={keyClicked}
+            key={sound.id}
+            tile={sound}
+          />
         ))}
       {mode === DrumMachineMode.piano &&
         pianoSoundBar.map((sound) => (
-          <Tile handleClick={handleClick} key={sound.id} tile={sound} />
+          <Tile
+            handleClick={handleClick}
+            keyClicked={keyClicked}
+            key={sound.id}
+            tile={sound}
+          />
         ))}
     </div>
   );
