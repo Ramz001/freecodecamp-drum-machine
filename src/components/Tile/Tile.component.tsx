@@ -1,41 +1,25 @@
-import { FC, useEffect, useState } from "react";
-import { DrumMachineMode } from "../../features/drum-machine/drum-machine.types";
+import { FC } from "react";
+import { tileType } from "../../features/drum-machine/drum-machine.types";
 import { motion } from "framer-motion";
 
 type TileTypes = {
   key: string;
-  tile: {
-    keyCode: number;
-    keyChar: string;
-    keyDisplay: string;
-    src: any;
-    mode: DrumMachineMode;
-  };
-  handleClick: (e: string) => void;
-  keyClicked: string
+  tile: tileType;
+  handleClick: (src: string) => void;
 };
 
-const Tile: FC<TileTypes> = ({ tile, handleClick, keyClicked }) => {
-  const { src, keyChar } = tile;
-  const [clicked, setClicked] = useState(false)
-  console.log(keyClicked)
+const Tile: FC<TileTypes> = ({ tile, handleClick }) => {
+  const { src, keyChar, clicked } = tile;
 
   const buttonHoverAnimations = {
     scale: 1.05,
     backgroundColor: "rgb(250 204 21)",
     color: "rgb(2 6 23)",
-  }
-  const buttonPassiveAnimations = { color: 'rgb(226 232 240)', backgroundColor: 'rgb(17 24 39)'}
-
-  
-  useEffect(() => {
-    if(keyChar === keyClicked.toUpperCase()){
-      setClicked(true)
-      setTimeout(() => setClicked(false), 350)
-    }
-    setTimeout(() => setClicked(false), 1500)
-
-  },[keyClicked, clicked, keyChar])
+  };
+  const buttonPassiveAnimations = {
+    color: "rgb(226 232 240)",
+    backgroundColor: "rgb(17 24 39)",
+  };
 
   return (
     <motion.button
@@ -43,7 +27,7 @@ const Tile: FC<TileTypes> = ({ tile, handleClick, keyClicked }) => {
       onClick={() => handleClick(src)}
       whileHover={buttonHoverAnimations}
       whileTap={buttonHoverAnimations}
-      animate={ clicked ? buttonHoverAnimations : buttonPassiveAnimations }
+      animate={clicked ? buttonHoverAnimations : buttonPassiveAnimations}
     >
       {keyChar}
     </motion.button>

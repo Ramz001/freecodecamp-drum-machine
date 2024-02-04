@@ -1,17 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { DrumMachineMode, drumMachineTypes } from "./drum-machine.types";
+import { drumMachineMode, drumMachineTypes } from "./drum-machine.types";
+import {
+  heaterSounds,
+  pianoSounds,
+} from "../../utils/soundBank/soundBank.utils";
 import {
   togglePowerReducer,
   setDisplayReducer,
   toggleAudioModeReducer,
-  setVolumeReducer
+  setVolumeReducer,
+  setKeyClickedReducer,
 } from "./drum-machine.reducers";
 
 const initialState: drumMachineTypes = {
-  mode: DrumMachineMode.heater,
+  mode: drumMachineMode.heater,
   volume: 1,
   power: true,
   display: "",
+  heaterSoundBank: heaterSounds,
+  pianoSoundBank: pianoSounds,
 };
 
 const drumMachine = createSlice({
@@ -21,10 +28,17 @@ const drumMachine = createSlice({
     togglePower: togglePowerReducer,
     toggleAudioMode: toggleAudioModeReducer,
     setDisplay: setDisplayReducer,
-    setVolume: setVolumeReducer
+    setVolume: setVolumeReducer,
+    setKeyClicked: setKeyClickedReducer,
   },
 });
 
-export const { togglePower, setDisplay, toggleAudioMode, setVolume } = drumMachine.actions;
+export const {
+  togglePower,
+  setDisplay,
+  toggleAudioMode,
+  setVolume,
+  setKeyClicked,
+} = drumMachine.actions;
 
 export default drumMachine.reducer;

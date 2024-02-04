@@ -1,11 +1,22 @@
-export type drumMachineTypes = {
-  mode: DrumMachineMode
-  volume: number
-  power: boolean
-  display: string
-}
+export type tileType = {
+  keyChar: string;
+  keyDisplay: string;
+  src: any;
+  mode: drumMachineMode;
+  clicked: boolean;
+  id: string;
+};
 
-export enum DrumMachineMode {
-  piano = 'piano',
-  heater = 'heater'
+export type drumMachineTypes = {
+  mode: drumMachineMode;
+  volume: number;
+  power: boolean;
+  display: string;
+  heaterSoundBank: tileType[];
+  pianoSoundBank: tileType[];
+};
+
+export enum drumMachineMode {
+  piano = "piano",
+  heater = "heater",
 }

@@ -6,7 +6,7 @@ import {
   setVolume,
   setDisplay,
 } from "../../features/drum-machine/drum-machine.slice";
-import { DrumMachineMode } from "../../features/drum-machine/drum-machine.types";
+import { drumMachineMode } from "../../features/drum-machine/drum-machine.types";
 import { ChangeEvent } from "react";
 import DrumIcon from "../../assets/icons/drum-solid.svg";
 import PianoIcon from "../../assets/icons/piano.svg";
@@ -22,12 +22,12 @@ const Settings = () => {
   };
 
   const handleAudioModeBtn = () => {
-    if (mode === DrumMachineMode.heater) {
-      dispatch(toggleAudioMode(DrumMachineMode.piano));
+    if (mode === drumMachineMode.heater) {
+      dispatch(toggleAudioMode(drumMachineMode.piano));
       dispatch(setDisplay("Piano Kit"));
     }
-    if (mode === DrumMachineMode.piano) {
-      dispatch(toggleAudioMode(DrumMachineMode.heater));
+    if (mode === drumMachineMode.piano) {
+      dispatch(toggleAudioMode(drumMachineMode.heater));
       dispatch(setDisplay("Heater Kit"));
     }
   };
@@ -99,7 +99,7 @@ const Settings = () => {
         <motion.div
           onClick={handleAudioModeBtn}
           animate={
-            mode === DrumMachineMode.heater
+            mode === drumMachineMode.heater
               ? switchActiveAnimations
               : switchPassiveAnimations
           }
@@ -109,7 +109,7 @@ const Settings = () => {
             animate
             className="bg-white w-5 h-5 rounded-full shadow-xl flex justify-center items-center"
           >
-            {mode === DrumMachineMode.heater && (
+            {mode === drumMachineMode.heater && (
               <motion.img
                 src={DrumIcon}
                 alt="drum icon"
@@ -119,7 +119,7 @@ const Settings = () => {
                 transition={{ type: "spring", stiffness: 100 }}
               />
             )}
-            {mode === DrumMachineMode.piano && (
+            {mode === drumMachineMode.piano && (
               <motion.img
                 src={PianoIcon}
                 alt="piano icon"
