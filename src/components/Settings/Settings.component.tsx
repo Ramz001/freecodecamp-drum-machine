@@ -42,8 +42,15 @@ const Settings = () => {
     setTimeout(() => dispatch(setDisplay("")), 2500);
   };
 
-  const switchActiveStyles = "bg-yellow-400 justify-end bg-opacity-85";
-  const switchPassiveStyles = "bg-slate-950 justify-start bg-opacity-100";
+  const switchActiveAnimations = {
+    backgroundColor: "rgb(250 204 21)",
+    justifyContent: "flex-end",
+  };
+
+  const switchPassiveAnimations = {
+    backgroundColor: "rgb(2 6 23)",
+    justifyContent: "flex-start",
+  };
 
   return (
     <section
@@ -53,7 +60,8 @@ const Settings = () => {
       <motion.div
         className="bg-gray-700 font-semibold rounded-xl h-20 text-2xl capitalize 
         text-slate-100 flex justify-center items-center"
-        animate
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
       >
         {display}
       </motion.div>
@@ -76,10 +84,8 @@ const Settings = () => {
       <div>
         <h4 className="text-xl font-normal">Power</h4>
         <motion.div
-          className={`w-16 h-8 rounded-full p-2 flex cursor-pointer items-center bg-slate-950
-            ${power ? switchActiveStyles : switchPassiveStyles}
-          `}
-          animate
+          className="w-16 h-8 rounded-full p-2 flex cursor-pointer items-center bg-slate-950"
+          animate={power ? switchActiveAnimations : switchPassiveAnimations}
           onClick={handlePowerBtn}
         >
           <motion.div
@@ -92,24 +98,36 @@ const Settings = () => {
         <h4 className="text-xl font-normal">Mode</h4>
         <motion.div
           onClick={handleAudioModeBtn}
-          animate
-          className={`w-16 h-8 rounded-full p-2 flex cursor-pointer items-center
-         ${
-           mode === DrumMachineMode.heater
-             ? switchActiveStyles
-             : switchPassiveStyles
-         }
-        `}
+          animate={
+            mode === DrumMachineMode.heater
+              ? switchActiveAnimations
+              : switchPassiveAnimations
+          }
+          className="w-16 h-8 rounded-full p-2 flex cursor-pointer items-center"
         >
           <motion.div
             animate
             className="bg-white w-5 h-5 rounded-full shadow-xl flex justify-center items-center"
           >
             {mode === DrumMachineMode.heater && (
-              <img src={DrumIcon} alt="drum icon" className="w-4 h-4" />
+              <motion.img
+                src={DrumIcon}
+                alt="drum icon"
+                className="w-4 h-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ type: "spring", stiffness: 100 }}
+              />
             )}
             {mode === DrumMachineMode.piano && (
-              <img src={PianoIcon} alt="piano icon" className="w-4 h-4" />
+              <motion.img
+                src={PianoIcon}
+                alt="piano icon"
+                className="w-4 h-4 select-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ type: "spring", stiffness: 100 }}
+              />
             )}
           </motion.div>
         </motion.div>
