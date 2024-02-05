@@ -6,7 +6,7 @@ const DrumMachineContainer = () => {
   return (
     <motion.section
       className="flex md:flex-row flex-col-reverse items-center justify-center 
-      rounded-2xl md:gap-x-6  gap-y-8"
+      rounded-2xl md:gap-x-6 gap-y-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >

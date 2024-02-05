@@ -54,8 +54,8 @@ const Settings = () => {
 
   return (
     <section
-      className="bg-gray-900 text-slate-300 rounded-xl flex flex-col 
-    sm:w-full md:w-60 lg:min-w-[20rem] px-6 py-5 gap-4 h-full"
+      className="bg-gray-900 text-slate-300 rounded-xl flex flex-col xs:w-full
+     md:w-72 sm:py-11 lg:min-w-80 2xl:w-[24rem] 2xl:py-[5.7rem] py-8 px-6 gap-4 h-full"
     >
       <motion.div
         className="bg-gray-700 font-semibold rounded-xl h-20 text-2xl capitalize 
